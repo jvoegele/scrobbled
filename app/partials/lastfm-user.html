@@ -1,0 +1,11 @@
+<div ng-controller="LastFmUserController">
+  <div class="row marketing">
+    <h2>{{userInfo.name}}</h2>
+    <p>{{userInfo.realname}}, {{userInfo.age}}, {{userInfo.country}}</p>
+    <p>{{userInfo.playcount}} scrobbles since {{userInfo.registered['#text']}}</p>
+  </div>
+
+  <div class="row marketing" ng-repeat="track in recentTracks">
+    <p>Track: {{track.name}}</p>
+  </div>
+</div>

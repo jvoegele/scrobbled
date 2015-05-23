@@ -1,0 +1,8 @@
+<div class="jumbotron" ng-controller="ScrobbledController">
+  <h1>Scrobbled!</h1>
+  <p class="lead">See what's been scrobbled by any Last.fm user. Enter a valid Last.fm username below.</p>
+  <form ng-submit="gotoUser()">
+    <p><input type="text" ng-model="username" placeholder="jvoegele" autofocus></p>
+    <p><input type="submit" value="See what's scrobbled!" class="btn btn-lg btn-success"></p>
+  </form>
+</div>
