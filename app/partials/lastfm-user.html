@@ -1,11 +1,18 @@
 <div ng-controller="LastFmUserController">
-  <div class="row marketing">
+  <div class="jumbotron">
     <h2>{{userInfo.name}}</h2>
-    <p>{{userInfo.realname}}, {{userInfo.age}}, {{userInfo.country}}</p>
+    <img ng-src="{{userImageUrl}}">
+    <p>{{personalInfo}}</p>
     <p>{{userInfo.playcount}} scrobbles since {{userInfo.registered['#text']}}</p>
   </div>
 
-  <div class="row marketing" ng-repeat="track in recentTracks">
-    <p>Track: {{track.name}}</p>
+  <div class="row track-list-item" ng-repeat="track in recentTracks">
+    <div class="col-xs-1"><img ng-src="{{getImageUrl('small', track.image)}}"></div>
+    <div class="col-xs-8">
+      <a target="_blank" ng-href="{{getArtistUrl(track.artist)}}">{{track.artist.name}}</a>
+      &ndash;
+      <a target="_blank" ng-href="{{getTrackUrl(track)}}">{{track.name}}</a>
+    </div>
+    <div class="col-xs-3"><small>{{track.date.uts * 1000 | date:'medium'}}</small></div>
   </div>
 </div>

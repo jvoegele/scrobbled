@@ -1,5 +1,10 @@
 /* app css stylesheet */
 
+.track-list-item {
+  padding: 5px 0 5px 0;
+  border-bottom: 1px solid gray;
+}
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;

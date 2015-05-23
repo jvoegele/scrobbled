@@ -39,13 +39,58 @@ app.controller("LastFmUserController", function($scope, $routeParams, $http) {
       });
   };
 
+  $scope.getImageUrl = function(preferredSize, imagesArray) {
+    var image;
+    var i;
+    for (i = 0; i < imagesArray.length; i++) {
+      image = imagesArray[i];
+      if (image.size === preferredSize) {
+        return image["#text"];
+      }
+    }
+    return imagesArray[0];
+  };
+
+  $scope.getArtistUrl = function(artistObject) {
+    return "http://www.last.fm/music/" + artistObject.url;
+  };
+
+  $scope.getTrackUrl = function(trackObject) {
+    return trackObject.url;
+  };
+
+  this.getPersonalInfo = function(userInfo) {
+    var sex = '';
+    switch(userInfo.gender) {
+      case 'm':
+        sex = 'Male';
+        break;
+      case 'f':
+        sex = 'Female';
+        break;
+    }
+    var personalInfo = [
+      userInfo.realname,
+      sex,
+      userInfo.age,
+      userInfo.country
+    ].filter(function(val) { return val });
+    return personalInfo;
+  };
+
   lastFm.get({
     method: 'user.info',
-    success: function(data) { $scope.userInfo = data.user }
+    success: function(data) {
+      var userInfo = data.user;
+      $scope.userInfo = userInfo;
+      $scope.personalInfo = lastFm.getPersonalInfo(userInfo).join(', ');
+      $scope.userImageUrl = $scope.getImageUrl('large', userInfo.image);
+    }
   });
 
   lastFm.get({
     method: 'user.getrecenttracks',
+    limit: 50,
     extended: 1,
     success: function(data) { $scope.recentTracks = data.recenttracks.track }
   });
